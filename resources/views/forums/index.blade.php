@@ -7,7 +7,7 @@
         
         {{-- Show "Create Thread" button only to logged-in users --}}
         @auth
-            <a href="{{-- route('forums.threads.create') --}}" class="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-opacity-90">
+            <a href="{{route('forums.threads.create')}}" class="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-opacity-90">
                 Start a New Discussion
             </a>
         @endauth

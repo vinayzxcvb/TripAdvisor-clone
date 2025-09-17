@@ -5,19 +5,25 @@ namespace App\Http\Controllers;
 use App\Events\NewForumPost;
 use App\Models\ForumThread;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class ForumController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth')->except(['index', 'show']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth')->except(['index', 'show']);
+    // }
 
-    
+
+    public function create()
+    {
+        return view('forums.create');
+    }
 
     public function index()
     {
-        $threads = ForumThread::with('user')->latest()->paginate(20);
+        $threads = ForumThread::with('user')->withCount('posts')->latest()->paginate(15);
+        
         return view('forums.index', compact('threads'));
     }
 
@@ -29,14 +35,15 @@ class ForumController extends Controller
 
     public function storeThread(Request $request)
     {
+        // dd($request->all());
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'body' => 'required|string|min:10',
+            // 'body' => 'required|string|min:10',
         ]);
 
         $thread = auth()->user()->forumThreads()->create($validated);
 
-        return redirect()->route('forums.show', $thread);
+        return redirect()->route('forums.show', $thread)->with('success', 'Thread created successfully.');
     }
 
     public function storePost(Request $request, ForumThread $thread)

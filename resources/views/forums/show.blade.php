@@ -9,6 +9,7 @@
             Posted by <span class="font-medium">{{ $thread->user->name }}</span> - {{ $thread->created_at->diffForHumans() }}
         </p>
         <div class="mt-4 text-gray-700 text-base leading-relaxed">
+            {{-- Use nl2br to respect line breaks, and e() to prevent XSS attacks --}}
             {!! nl2br(e($thread->body)) !!}
         </div>
     </div>

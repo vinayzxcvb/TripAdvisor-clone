@@ -12,10 +12,10 @@ class TripController extends Controller
     /**
      * Protect all trip routes with authentication middleware.
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Display a list of the authenticated user's trips. 🗺️
@@ -24,25 +24,26 @@ class TripController extends Controller
     {
         // Fetch trips that belong only to the currently logged-in user.
         $trips = auth()->user()->trips()->latest()->get();
-
         return view('trips.index', compact('trips'));
     }
 
     /**
      * Store a new trip in the database. ✈️
      */
-    public function store(Request $request): RedirectResponse
+    // app/Http/Controllers/TripController.php
+    public function store(Request $request)
     {
-        // Validate the incoming request.
         $validated = $request->validate([
             'name' => 'required|string|max:100',
         ]);
 
-        // Create the trip and associate it with the authenticated user.
-        $trip = auth()->user()->trips()->create($validated);
+        // Add the current date to the data before creating
+        $tripData = array_merge($validated, ['start_date' => now()]);
 
-        // Redirect the user to their newly created trip's page.
-        return redirect()->route('trips.show', $trip)->with('success', 'Your trip has been created!');
+        $trip = auth()->user()->trips()->create($tripData);
+
+        return redirect()->route('trips.show', $trip)
+            ->with('success', 'Your trip has been created!');
     }
 
     /**
