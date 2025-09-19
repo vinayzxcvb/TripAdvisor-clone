@@ -9,9 +9,15 @@ use App\Http\Controllers\TripController;
 use App\Http\Controllers\TripItemController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HotelPricingController;
+use App\Http\Controllers\ProfileController;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+});
 
 Route::get('/', [ListingController::class, 'index'])->name('home');
 Route::get('/search', [ListingController::class, 'search'])->name('listings.search');
+
 // --- AUTHENTICATION ROUTES ---
 Route::middleware('guest')->group(function () {
     Route::get('register', [AuthController::class, 'createRegister'])->name('register');

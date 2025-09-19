@@ -9,10 +9,6 @@ use App\Models\User;
 
 class ForumController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth')->except(['index', 'show']);
-    // }
 
 
     public function create()

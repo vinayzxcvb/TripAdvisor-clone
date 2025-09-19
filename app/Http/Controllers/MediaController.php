@@ -7,13 +7,7 @@ use App\Models\Listing;
 use Illuminate\Http\Request;
 
 
-class MediaController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+class MediaController extends Controller{
     /**
      * Store a new media file for a listing and queue it for processing.
      */

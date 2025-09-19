@@ -27,23 +27,6 @@ class ListingController extends Controller
 
         return view('listings.index', compact('listings'));
     }
-    // public function index()
-    // {
-    //     // 2. Count all reviews in the database
-    //     $reviewCount = Review::count();
-
-    //     // Get listings and their individual review counts
-    //     $listings = Listing::with('media')
-    //         ->withCount('reviews')
-    //         ->latest()
-    //         ->paginate(15);
-
-    //     // 3. Pass both variables to the view
-    //     return view('listings.index', [
-    //         'listings' => $listings,
-    //         'reviewCount' => $reviewCount
-    //     ]);
-    // }
     public function search(Request $request)
     {
         // 1. Get the search query from the request

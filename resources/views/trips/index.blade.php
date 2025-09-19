@@ -1,42 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">My Trips</h1>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
-        <h2 class="text-2xl font-semibold mb-4 text-gray-800">Create a New Trip</h2>
-        <form action="{{ route('trips.store') }}" method="POST" class="flex items-center space-x-4">
+<main class="flex-1 p-6">
+    <div class="bg-white dark:bg-slate-900/60 p-6 rounded-lg shadow-sm">
+        <h1 class="text-2xl font-bold tracking-tight">My Trips</h1>
+        <p class="text-sm text-subtle-light dark:text-subtle-dark mt-1">Create a new trip or view your existing ones.</p>
+        
+        <form action="{{ route('trips.store') }}" method="POST" class="mt-4 flex flex-col md:flex-row items-center gap-4">
             @csrf
-            <div class="flex-grow">
-                <label for="name" class="sr-only">Trip Name</label>
-                <input type="text" name="name" id="name" required 
-                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm" 
-                       placeholder="e.g., Summer Vacation in Paris">
-            </div>
-            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-md font-medium hover:bg-opacity-90 whitespace-nowrap">
-                Create Trip
+            <input name="name" class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-3 px-4 text-sm focus:ring-primary focus:border-primary placeholder:text-subtle-light placeholder:dark:text-subtle-dark" placeholder="Name your new trip" type="text" required/>
+            <button class="w-full md:w-auto flex items-center justify-center gap-2 rounded-lg bg-primary text-white text-sm font-bold py-3 px-4 hover:bg-opacity-90 transition-all">
+                <span class="material-symbols-outlined">add</span>
+                <span>Create New Trip</span>
             </button>
         </form>
     </div>
-
-    <div class="bg-white rounded-lg shadow">
-        <div class="space-y-4 p-6">
-            @forelse ($trips as $trip)
-                <div class="p-4 border-b last:border-b-0 hover:bg-gray-50 rounded-md">
-                    <a href="{{ route('trips.show', $trip) }}" class="block">
-                        <h3 class="text-xl font-semibold text-gray-800 hover:text-primary">{{ $trip->name }}</h3>
-                        <p class="text-sm text-gray-500 mt-1">Created {{ $trip->created_at->format('M d, Y') }}</p>
+    
+    <div class="mt-6">
+        @if ($trips->isNotEmpty())
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach ($trips as $trip)
+                    <a href="{{ route('trips.show', $trip) }}" class="block p-4 rounded-lg bg-white dark:bg-slate-900/60 border border-border-light dark:border-border-dark hover:shadow-lg hover:border-primary/50 transition-all">
+                        <h3 class="font-bold">{{ $trip->name }}</h3>
+                        <p class="text-sm text-subtle-light dark:text-subtle-dark mt-1">Created: {{ $trip->created_at->format('M d, Y') }}</p>
                     </a>
-                </div>
-            @empty
-                <div class="p-6 text-center text-gray-500">
-                    <p>You haven't created any trips yet. Use the form above to start planning!</p>
-                </div>
-            @endforelse
-        </div>
+                @endforeach
+            </div>
+        @else
+            <div class="text-center py-10 bg-white dark:bg-slate-900/60 rounded-lg">
+                <p class="text-subtle-light dark:text-subtle-dark">You haven't created any trips yet. Use the form above to start planning!</p>
+            </div>
+        @endif
     </div>
-</div>
+</main>
 @endsection
