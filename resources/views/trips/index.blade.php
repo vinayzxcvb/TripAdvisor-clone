@@ -10,7 +10,7 @@
             @csrf
             <input name="name" class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-3 px-4 text-sm focus:ring-primary focus:border-primary placeholder:text-subtle-light placeholder:dark:text-subtle-dark" placeholder="Name your new trip" type="text" required/>
             <button class="w-full md:w-auto flex items-center justify-center gap-2 rounded-lg bg-primary text-white text-sm font-bold py-3 px-4 hover:bg-opacity-90 transition-all">
-                <span class="material-symbols-outlined">add</span>
+                <span class="material-symbols-outlined">+</span>
                 <span>Create New Trip</span>
             </button>
         </form>

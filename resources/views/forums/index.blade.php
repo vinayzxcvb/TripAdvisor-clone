@@ -26,7 +26,7 @@
                     </div>
                     @auth
                     <a href="{{ route('forums.threads.create') }}" class="flex items-center justify-center gap-2 bg-primary text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-opacity-90 transition-all w-full sm:w-auto">
-                        <span class="material-symbols-outlined">edit_square</span>
+                        <span class="material-symbols-outlined">+</span>
                         <span>Create a Post</span>
                     </a>
                     @endauth

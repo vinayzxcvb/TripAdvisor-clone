@@ -64,6 +64,10 @@ class UserController extends Controller
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            if (auth()->user()->is_admin) {
+                // If they are, redirect to the admin dashboard route
+                return redirect()->intended(route('admin.dashboard'));
+            }
             $request->session()->regenerate();
             return redirect()->intended('/'); // Redirect to home or intended page
         }

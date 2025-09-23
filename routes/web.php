@@ -10,6 +10,32 @@ use App\Http\Controllers\TripItemController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HotelPricingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Admin\ListingController as AdminListingController;
+use App\Http\Controllers\Admin\DashboardController;
+
+// --- ADMIN ROUTES ---
+Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+    // Route::get('/dashboard', function () {
+    //     return view('admin.dashboard');
+    // })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Listing Management Routes
+    Route::get('/listings', [AdminListingController::class, 'index'])->name('listings.index'); // View all
+    Route::get('/listings/create', [AdminListingController::class, 'create'])->name('listings.create');
+    Route::post('/listings', [AdminListingController::class, 'store'])->name('listings.store');
+    Route::get('/listings/{listing}/edit', [AdminListingController::class, 'edit'])->name('listings.edit'); // Show edit form
+    Route::put('/listings/{listing}', [AdminListingController::class, 'update'])->name('listings.update'); // Handle update
+    Route::delete('/listings/{listing}', [AdminListingController::class, 'destroy'])->name('listings.destroy'); // Handle delete
+});
+// --- WISHLIST & BOOKING ROUTES ---
+Route::middleware('auth')->group(function () {
+    Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/wishlist/{listing}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+    Route::post('/bookings/{listing}', [BookingController::class, 'store'])->name('bookings.store');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');

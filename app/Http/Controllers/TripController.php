@@ -6,6 +6,7 @@ use App\Models\Trip;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Models\Listing;
 
 class TripController extends Controller
 {
@@ -51,14 +52,22 @@ class TripController extends Controller
      */
     public function show(Trip $trip): View
     {
-        // **Authorization Check:** Ensure the user owns this trip.
+        // Authorization Check
         if ($trip->user_id !== auth()->id()) {
             abort(403, 'This is not your trip!');
         }
 
-        // Eager load the items and the listings associated with them for efficiency.
+        // Eager load items for efficiency
         $trip->load('items.listing');
+        
+        // Get the IDs of listings already in the trip
+        $existingListingIds = $trip->items->pluck('listing_id');
 
-        return view('trips.show', compact('trip'));
+        // Fetch all other listings that are NOT already in the trip
+        $availableListings = Listing::whereNotIn('id', $existingListingIds)
+            ->latest()
+            ->paginate(10);
+
+        return view('trips.show', compact('trip', 'availableListings'));
     }
 }

@@ -56,4 +56,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(ForumPost::class);
     }
+
+    public function wishlist()
+    {
+        return $this->belongsToMany(Listing::class, 'wishlist');
+    }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+    public function hasInWishlist(Listing $listing)
+    {
+        return $this->wishlist()->where('listing_id', $listing->id)->exists();
+    }
 }

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $thread->title . ' - Forum')
+
 @section('content')
 <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
     
@@ -12,9 +14,11 @@
                 Posted by <span class="font-medium">{{ $thread->user->name }}</span> - {{ $thread->created_at->diffForHumans() }}
             </p>
         </div>
+        @if($thread->body)
         <div class="mt-4 text-gray-700 dark:text-gray-300 text-base leading-relaxed">
             {!! nl2br(e($thread->body)) !!}
         </div>
+        @endif
     </div>
 
     <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Replies ({{ $thread->posts->count() }})</h2>

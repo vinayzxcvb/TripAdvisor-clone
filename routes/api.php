@@ -21,6 +21,5 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    // Add other protected API routes here...
-    // e.g., Route::post('/trips', [TripController::class, 'store']);
+
 });

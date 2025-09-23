@@ -30,7 +30,7 @@
                         <a href="{{ route('listings.show', $listing) }}" class="block">
                             <div class="flex flex-col sm:flex-row">
                                 <div class="sm:w-1/3">
-                                    <div class="h-48 w-full bg-cover bg-center sm:h-full" style="background-image: url('{{ $listing->media->isNotEmpty() ? Storage::url($listing->media->first()->path) : 'https://placehold.co/600x400/1193d4/FFFFFF?text=Wanderlust' }}');"></div>
+                                    <div class="h-48 w-full bg-cover bg-center sm:h-full" style="background-image: url('https://placehold.co/600x400/1193d4/FFFFFF?text={{ urlencode($listing->name) }}');"></div>
                                 </div>
                                 <div class="flex flex-1 flex-col justify-between p-6">
                                     <div>

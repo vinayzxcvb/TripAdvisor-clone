@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Wanderlust - Your Travel Companion</title>
+    <title>ExploreEdge - Your Travel Companion</title>
 
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link href="https://fonts.gooExploreEdgegleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
